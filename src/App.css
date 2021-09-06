@@ -4,13 +4,15 @@
   box-sizing: border-box;
 }
 
+
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 20%;
-  margin: 20px auto;
+  margin: 0 auto;
   border: 2px dotted #5e4fdb;
 }
 
@@ -155,4 +157,14 @@ input[type="checkbox"].grey::before {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.title{
+  margin-top: 100px;
+  height: 1000px;
+}
+
+.h1{
+  margin-bottom: 20px;
+
 }

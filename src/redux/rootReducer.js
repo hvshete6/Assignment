@@ -1,4 +1,4 @@
-import {bgReducer, BG_KEY} from "./bgRedux/bgReducer";
+import {bgReducer} from "./bgRedux/bgReducer";
 import { combineReducers } from "redux";
 
 let rootReducer = combineReducers({

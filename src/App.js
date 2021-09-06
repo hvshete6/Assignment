@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { Provider } from "react-redux";
-import ChangeButton from "./ChangeButton";
-import { store } from "./redux/store";
 
+import ChangeButton from "./ChangeButton";
+import { useSelector, useDispatch } from "react-redux";
+import { BG_KEY } from "./redux/bgRedux/bgReducer";
 
 const useStyles = makeStyles((theme) => ({
   minus: {
@@ -52,15 +52,32 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
+  const [title, setTitle] = useState([]);
 
+  useEffect(() => {
+    fetch("https://logibricks.com/api/blogs/logistics-management")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setTitle(data?.blogs?.data);
+        console.log(data);
+      })
+      .catch();
+  }, []);
+
+  let viewBg = useSelector((state) => {
+    return state[BG_KEY];
+  });
 
   return (
-    <div className="container">
+    <div style={{ backgroundColor: viewBg.color }}>
+    <div className="container" >
       {/* ////////////////////////////////////// TOP Section ////////////////////////// */}
 
       <div className="buttons">
         <Button
-          variant="contained"
+          varient="container"
           type="checkbox"
           size="large"
           style={{
@@ -144,7 +161,7 @@ function App() {
 
       {/* ////////////////////////////////////// Bottom Section ////////////////////////// */}
 
-      <div className="lastSection">
+      <div className="lastSection" style={{ backgroundColor: viewBg.color }}>
         <div className="toggleBox">
           <div className="toggle">
             <input type="checkbox" className="red" id="one" />
@@ -176,11 +193,19 @@ function App() {
       </div>
 
       {/* ////////////////////////////////////// Change Colour Section ////////////////////////// */}
-      <Provider store={store}>
-        <div className="changeButton" sty>
-        <ChangeButton/>
+      
+        <div className="changeButton">
+          <ChangeButton />
         </div>
-      </Provider>
+
+      <div className="title">
+        {title?.map((title) => (
+          <h1 className="h1" key={title.id}>
+            {title.title}
+          </h1>
+        ))}
+      </div>
+    </div>
     </div>
   );
 }

@@ -33,7 +33,7 @@ let grey = () => {
 let lightGrey = () => {
   return {
     type: LIGHT_GREY,
-    payload: "F6F6F6",
+    payload: "FFFF00",
   };
 };
 
